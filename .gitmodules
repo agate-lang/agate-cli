@@ -1,0 +1,6 @@
+[submodule "agate"]
+	path = agate
+	url = https://github.com/agate-lang/agate.git
+[submodule "units"]
+	path = units
+	url = https://github.com/agate-lang/units.git
