@@ -22,7 +22,7 @@ static void error(AgateVM *vm, AgateErrorKind kind, const char *unit_name, int l
       printf("[%s:%d]: error: %s\n", unit_name, line, message);
       break;
     case AGATE_ERROR_RUNTIME:
-      printf("error: %s\n", message);
+      printf("Error: %s\n", message);
       break;
     case AGATE_ERROR_STACKTRACE:
       printf("from [%s:%d]: %s\n", unit_name, line, message);
@@ -67,6 +67,7 @@ int main(int argc, const char *argv[]) {
       return_code = EXIT_FAILURE;
     }
   } else {
+    fprintf(stderr, "Unknown unit: '%s'\n", argv[1]);
     return_code = EXIT_FAILURE;
   }
 
