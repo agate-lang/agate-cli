@@ -5,6 +5,7 @@
 
 #include "agate.h"
 #include "support.h"
+#include "agate_std.h"
 
 #include "config.h"
 
@@ -44,6 +45,8 @@ int main(int argc, const char *argv[]) {
   agateConfigInitialize(&config);
 
   config.unit_handler = agateExUnitHandler;
+  config.foreign_class_handler = agateExForeignClassHandler;
+  config.foreign_method_handler = agateExForeignMethodHandler;
 
   config.print = print;
   config.write = write;
@@ -54,6 +57,9 @@ int main(int argc, const char *argv[]) {
 
   agateExUnitAddIncludePath(vm, AGATE_UNIT_DIRECTORY);
   agateExUnitAddIncludePath(vm, ".");
+
+  agateStdConfigureClassHandlers(vm);
+  agateStdConfigureMethodHandlers(vm);
 
   const char *source = agateExUnitLoad(vm, argv[1]);
   int return_code = EXIT_SUCCESS;
@@ -71,6 +77,6 @@ int main(int argc, const char *argv[]) {
     return_code = EXIT_FAILURE;
   }
 
-  agateDeleteVM(vm);
+  agateExDeleteVM(vm);
   return return_code;
 }

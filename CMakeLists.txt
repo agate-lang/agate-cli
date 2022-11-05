@@ -5,10 +5,6 @@ project(AGATE_CLI
   LANGUAGES C
 )
 
-if(UNIX)
-  set(CMAKE_C_FLAGS "-Wall -pedantic")
-endif()
-
 set(AGATE_UNIT_BASE_DIRECTORY "${CMAKE_INSTALL_PREFIX}/share/agate")
 set(AGATE_UNIT_DIRECTORY "${AGATE_UNIT_BASE_DIRECTORY}/units")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config.h.in" "${CMAKE_CURRENT_BINARY_DIR}/config.h" @ONLY)
@@ -17,6 +13,9 @@ add_executable(agate
   agate-cli.c
   agate/agate.c
   agate/support.c
+
+  units/src/agate_math_big.c
+  units/src/agate_std.c
 )
 
 target_compile_features(agate
@@ -24,9 +23,16 @@ target_compile_features(agate
     c_std_99
 )
 
+if(MSVC)
+  target_compile_options(agate PRIVATE /W3)
+else()
+  target_compile_options(agate PRIVATE -Wall -Wpedantic)
+endif()
+
 target_include_directories(agate
   PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/agate"
+    "${CMAKE_CURRENT_SOURCE_DIR}/units/src"
     "${CMAKE_CURRENT_BINARY_DIR}"
 )
 
