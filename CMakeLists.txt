@@ -12,10 +12,10 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config.h.in" "${CMAKE_CURRENT_BINARY
 add_executable(agate
   agate-cli.c
   agate/agate.c
-  agate/support.c
+  agate/agate-support.c
 
-  units/src/agate_math_big.c
-  units/src/agate_std.c
+  units/src/agate-math-big.c
+  units/src/agate-std.c
 )
 
 target_compile_features(agate

@@ -4,8 +4,8 @@
 #include <stdlib.h>
 
 #include "agate.h"
-#include "support.h"
-#include "agate_std.h"
+#include "agate-support.h"
+#include "agate-std.h"
 
 #include "config.h"
 
